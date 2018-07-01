@@ -1,0 +1,103 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>BoschIoT</title>
+
+
+<!--  <link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"> -->
+</head>
+<body>
+5 latest Temperature
+<table border="1">
+  <tr>
+    <th>DeviceID</th>
+    <th>Temperature</th>
+    <th>time</th>
+  </tr>
+  {% for data in tempData %}
+    <tr>
+      <td>{{data.deviceID}}</td>
+      <td>{{data.temperatureValue}}</td>
+      <td>{{data.ctime}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+5 latest carbonDioxide
+<table border="1">
+  <tr>
+    <th>DeviceID</th>
+    <th>carbonDioxide</th>
+    <th>time</th>
+  </tr>
+  {% for data in CO2Data %}
+    <tr>
+      <td>{{data.deviceID}}</td>
+      <td>{{data.CO2value}}</td>
+      <td>{{data.ctime}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+5 latest light
+<table border="1">
+  <tr>
+    <th>DeviceID</th>
+    <th>light</th>
+    <th>time</th>
+  </tr>
+  {% for data in lightData %}
+    <tr>
+      <td>{{data.deviceID}}</td>
+      <td>{{data.lightValue}}</td>
+      <td>{{data.ctime}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+5 latest humidity
+<table border="1">
+  <tr>
+    <th>DeviceID</th>
+    <th>humidity</th>
+    <th>time</th>
+  </tr>
+  {% for data in humidityData %}
+    <tr>
+      <td>{{data.deviceID}}</td>
+      <td>{{data.humidityValue}}</td>
+      <td>{{data.ctime}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+
+Add temperature:
+<form action="/update/temperature" method="post" >
+    ID：<input type="text" name="deviceID" />
+    Temperature: <input  type="text" name="temperatureValue" />
+    <input type="submit" value="Submit" />
+</form>
+Add carbonDioxide:
+<form action="/update/CO2" method="post" >
+    ID：<input type="text" name="deviceID" />
+    carbonDioxide: <input  type="text" name="CO2value" />
+    <input type="submit" value="Submit" />
+</form>
+Add light:
+<form action="/update/light" method="post" >
+    ID：<input type="text" name="deviceID" />
+    light: <input  type="text" name="lightValue" />
+    <input type="submit" value="Submit" />
+</form>
+Add humidity:
+<form action="/update/humidity" method="post" >
+    ID：<input type="text" name="deviceID" />
+    humidity: <input  type="text" name="humidityValue" />
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
+

@@ -1,0 +1,8 @@
+BoschIoT/__init__.py
+BoschIoT/config.py
+BoschIoT/model.py
+BoschIoT.egg-info/PKG-INFO
+BoschIoT.egg-info/SOURCES.txt
+BoschIoT.egg-info/dependency_links.txt
+BoschIoT.egg-info/requires.txt
+BoschIoT.egg-info/top_level.txt
