@@ -71,6 +71,10 @@ def update_temperature():
     res = data.execute('INSERT INTO temperature(deviceID,temperatureValue)\
             VALUES(?, ?)\
             ', [id, value])
+    if int(value) >28:
+        res = data.execute('UPDATE DeviceStatus SET Fans = 1 WHERE deviceID = ' + str(id))  
+    else:
+        res = data.execute('UPDATE DeviceStatus SET Fans = 0 WHERE deviceID = ' + str(id))  
     data.commit()
     return flask.jsonify(**context), 200
 
@@ -84,6 +88,10 @@ def update_CO2():
     res = data.execute('INSERT INTO carbonDioxide(deviceID,CO2value)\
             VALUES(?, ?)\
             ', [id, value])
+    if int(value) >500:
+        res = data.execute('UPDATE DeviceStatus SET Curtain = 0 WHERE deviceID = ' + str(id))  
+    else:
+        res = data.execute('UPDATE DeviceStatus SET Curtain = 1 WHERE deviceID = ' + str(id))  
     data.commit()
     return flask.jsonify(**context), 200
 
@@ -97,6 +105,10 @@ def update_light():
     res = data.execute('INSERT INTO light(deviceID,lightValue)\
             VALUES(?, ?)\
             ', [id, value])
+    if int(value) <=200:
+        res = data.execute('UPDATE DeviceStatus SET LED = 1 WHERE deviceID = ' + str(id))  
+    else:
+        res = data.execute('UPDATE DeviceStatus SET LED = 0 WHERE deviceID = ' + str(id))  
     data.commit()
     return flask.jsonify(**context), 200
 
@@ -111,5 +123,32 @@ def update_humidity():
     res = data.execute('INSERT INTO humidity(deviceID,humidityValue)\
             VALUES(?, ?)\
             ', [id, value])
+    data.commit()
+    return flask.jsonify(**context), 200
+
+
+@BoschIoT.app.route('/deviceStatus', methods=['GET'])
+def get_device_status():
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    id = 1
+    res = data.execute('SELECT * FROM DeviceStatus WHERE deviceID = ' + str(id)).fetchone()
+    if res:
+        context["deviceID"] = res["deviceID"]
+        context["deviceType"] = res["deviceType"]
+        context["Curtain"] = res["Curtain"]
+        context["Fans"] = res["Fans"]
+        context["LED"] = res["LED"]
+    else:
+        res = data.execute('INSERT INTO DeviceStatus(deviceID, deviceType)\
+            VALUES(?, ?)\
+            ', [id, id])
+        context["deviceID"] = id
+        context["deviceType"] = id
+        context["Curtain"] = 0
+        context["Fans"] = 0
+        context["LED"] = 0
+        
     data.commit()
     return flask.jsonify(**context), 200

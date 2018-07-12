@@ -22,3 +22,11 @@ CREATE TABLE humidity (
   ctime TIMESTAMP DEFAULT (datetime('now', 'localtime'))
 );
 
+CREATE TABLE DeviceStatus (
+  deviceID VARCHAR(20) NOT NULL,
+  deviceType VARCHAR(20) DEFAULT NULL,
+  Curtain INTEGER DEFAULT 0,
+  Fans INTEGER DEFAULT 0,
+  LED INTEGER DEFAULT 0
+);
+
