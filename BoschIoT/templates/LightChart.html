@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>dashboard</title>
+    <!-- 引入 echarts.js -->
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+    <script src="../static/layui/layui.js"></script>
+</head>
+<body>
+    <!-- <iframe class="chart-iframe" style="width: 1000px;height: 600px;" id="all_charts" name="main" > -->
+      	    <!-- 为Pie Chart准备一个具备大小（宽高）的Dom -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+  <legend>Hourly Light Trend      <!-- <button class="layui-btn layui-btn-primary layui-btn-sm" id = "yesterday" onclick="getOrders(1, 0);">昨日</button> <button class="layui-btn layui-btn-primary layui-btn-sm" id = "week" onclick="getOrders(7, 1);">一周</button> <button class="layui-btn layui-btn-primary layui-btn-sm" id = "month" onclick="getOrders(31, 1);">一月</button> --></legend> 
+</fieldset>  
+             
+    	<div id="Temperature" style="width: 490px;height:300px;"></div>
+    <script type="text/javascript">
+        //*****************************************DEVICE PIE CHART*****************************************
+        //**************************************************************************************************
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('Temperature'));
+        let option = {
+            legend: {
+                // orient: 'vertical',
+                // x: 'right',
+                // y: 'center',
+                data:[
+                'light'
+                // '洗衣机', '吹风机'
+                ]
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: [
+                // 'Mon'
+                // 'Mon'
+                // , 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+                ]
+            },
+            yAxis: {
+                type: 'value',
+                name: "intensity",
+            },
+            series: [
+                    // {
+                    // name: 'temperature',
+                    // data: [1],
+                    // type: 'line',
+                    // smooth: true}
+                // {
+                //     name: '洗衣机',
+                //     data: [820, 932, 901, 934, 1290, 1330, 1320],
+                //     type: 'line',
+                //     smooth: true}
+                ]
+        };
+        var myDate = new Date();
+        //let data1 = []
+        for(let i = 0; i < 24; ++i) {
+            // alert(weekday[(d.getDay() + i)%7]);  
+            let hr = myDate.getHours(); 
+            hr = hr + i;
+            if(hr >= 24) {
+                hr = hr - 24;
+            }
+            option["xAxis"]["data"].push(hr + ":00");
+            //data1.push(i);
+        }
+        //option["series"].push({data: data1, type: 'line', smooth: true, name: 'temperature'});
+        myChart.setOption(option);
+        function getOrders(t, c){
+            // let devices = ['无订单', '洗衣机', '吹风机', '能量仪', '空气净化器', '艾炙仪']
+            myChart.showLoading({
+                textStyle : {
+                    fontSize : 100
+                }
+            });
+            //option["legend"]["data"] = [];
+            //option["series"] = [];
+            getDetailOrders();
+            // if(c === 0) {
+            // option["xAxis"]["data"] = [];
+            //getDetailOrders();
+            // }
+            // else if(t === 7) {
+            //     let d = new Date();
+            //     let weekday = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            //     option["xAxis"]["data"] = [];
+            //     for(let i = 0; i < 7; ++i) {
+            //         // alert(weekday[(d.getDay() + i)%7]);   
+            //         option["xAxis"]["data"].push(weekday[(d.getDay() + i)%7]);
+            //     }
+            //     let but1 = document.getElementById('yesterday');
+            //     but1.style.backgroundColor = '#ffffff';
+            //     let but2 = document.getElementById('week');
+            //     but2.style.backgroundColor = '#F2F2F2';
+            //     let but3 = document.getElementById('month');
+            //     but3.style.backgroundColor = '#ffffff';
+            //     getDetailOrders(7, 1);
+            // }
+            // else if(t === 31) {
+            //     option["xAxis"]["data"] = [];
+            //     let dd = new Date();
+            //     for(let i = 0; i < t; ++i) {
+            //         option["xAxis"]["data"].push(0);
+            //     } 
+            //     for(let i = 0; i < t; ++i) {
+            //         // alert(weekday[(d.getDay() + i)%7]);  
+            //         option["xAxis"]["data"][t - 1 - i] = (dd.getMonth() + 1 + "月" + dd.getDate() + "日");
+            //         dd.setDate(dd.getDate() - 1);
+            //     }
+            //     let but1 = document.getElementById('yesterday');
+            //     but1.style.backgroundColor = '#ffffff';
+            //     let but2 = document.getElementById('week');
+            //     but2.style.backgroundColor = '#ffffff';
+            //     let but3 = document.getElementById('month');
+            //     but3.style.backgroundColor = '#F2F2F2';
+            //     getDetailOrders(31, 1);
+            // }
+        }
+
+        function getDetailOrders(){
+            //let devices = ['无订单', '洗衣机', '吹风机', '能量仪', '空气净化器', '艾炙仪']
+            $.ajax({
+                    type: 'get',
+                    data: {
+                        time: 1,
+                        value: 1
+                    },
+                    url: '/charts/lightData/{{id}}',//请求数据的地址
+                    dataType: "json",        //返回数据形式为json
+                    success: function (result) {
+                        let yAxis = result["datay"]
+                        option["series"] = [];
+                        option["series"].push({data: yAxis, type: 'line', smooth: true, name: 'light'});
+                        myChart.hideLoading();    //隐藏加载动画
+                        myChart.setOption(option);
+                        
+                    },
+                    error: function (errorMsg) {
+                        //请求失败时执行该函数
+                        alert("图表请求数据失败!");
+                        myChart.hideLoading();
+                    }
+            });
+        }
+        getOrders(7, 1);
+    </script>
+    <!-- </iframe> -->
+
+    <!-- 为Pie Chart准备一个具备大小（宽高）的Dom -->
+    <!-- <div id="UserAnalysis" style="width: 600px;height:400px;"></div> -->
+ 
+</body>
+</html>

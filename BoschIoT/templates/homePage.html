@@ -1,0 +1,148 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>BoschIoT</title>
+<link rel="stylesheet" href="../static/layui/css/layui.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+  <script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+  <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+  <script src="../static/layui/layui.js"></script>
+    <script>
+            //设备检测
+            function detectmob() {
+                if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ){
+
+                }
+                else {
+                    $(".pcc").css("min-heignt","");
+                    $(".pcc").css("min-heignt","100px");
+                    console.log('2')
+                    //$('#layui_body').attr("style","min-height:;");
+
+                }
+            }
+            detectmob();
+        </script>
+</head>
+<body class="layui-layout-body" style="min-width: 1378px; ">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header header">
+        <div class="layui-main mag0">
+            <a href="#" onClick="javascript :window.parent.location.reload('/index');" class="logo layui-icon">&#xe68e;  BoschIoT</a>
+            <!-- 显示/隐藏菜单 -->
+            <a href="javascript:;" class="iconfont hideMenu layui-icon icon1"> &#xe649;</a>
+      <!-- 天气信息 -->
+    <div class="weather" pc>
+        <div id="tp-weather-widget"></div>
+        <script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+        <script>tpwidget("init", {
+            "flavor": "slim",
+            "location": "WX4FBXXFKE4F",
+            "geolocation": "enabled",
+            "language": "zh-chs",
+            "unit": "c",
+            "theme": "chameleon",
+            "container": "tp-weather-widget",
+            "bubble": "disabled",
+            "alarmType": "badge",
+            "color": "#FFFFFF",
+            "uid": "U9EC08A15F",
+            "hash": "039da28f5581f4bcb5c799fb4cdfb673"
+        });
+        tpwidget("show");</script>
+    </div>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          welcome!
+        </a>
+      </li>
+
+    </ul>
+  </div>
+  </div>
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed"  id="ordermg">
+          <a class="layui-icon" href="javascript:;">&#xe609;   Device Status</a>
+          <dl class="layui-nav-child">
+            <dd><a class="layui-icon" style="display:none" id="tmt" href="javascript:;">&#xe63c;   Tomato GreenHouse</a></dd>
+            <dd><a class="layui-icon" style="display:none" ID="stb" href="javascript:;">&#xe60a;  Strawberry GreenHouse</a></dd>
+            <dd><a class="layui-icon" style="display:none" ID="uploadTest" href="javascript:;">&#xe60a;  uploadTest</a></dd>
+          </dl>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body pcc" id="pcc" style="min-width: 1178px;">
+    <!-- 内容主体区域 -->
+    <!-- <iframe class="admin-iframe" style="position: absolute;border: 0;width: 100%;height: 100%;" id="web_page" name="main" src="/index/home.html"></iframe> -->
+      <iframe class="admin-iframe" style="position: absolute;border: 0;width: 100%;height: 100%;" id="web_page" name="main"></iframe>
+  </div>
+  
+</div>
+<script src="../../static/layui/layui.js"></script>
+<script>
+    (function () {
+        var flag = 0;
+         // $(".layui-layout-admin").toggleClass("showMenu");
+     	$("#tmt").show();
+     	$("#stb").show();
+     	$("#uploadTest").show();
+         //隐藏左侧导航
+        $(".hideMenu").click(function(){
+            $(".layui-layout-admin").toggleClass("showMenu");
+            //渲染顶部窗口
+            if(flag==0){
+                $(".icon1").html("&#xe647;");
+                flag =1;
+            }else {
+                $(".icon1").html("&#xe649;");
+                flag =0;
+            }
+
+        });
+    })();
+
+
+	//JavaScript代码区域
+	layui.use('element', function(){
+	  var element = layui.element;
+	  
+	});
+/* 用户列表信息 */
+
+	$("#uploadTest").click(function(){
+	    $('#web_page').attr('src','/');
+
+	})
+	$("#tmt").click(function(){
+	    $('#web_page').attr('src','/deviceCharts/1');
+
+	})
+
+	$("#stb").click(function(){
+	    $('#web_page').attr('src','/deviceCharts/2');
+
+	})
+
+</script>
+</body>
+</html>

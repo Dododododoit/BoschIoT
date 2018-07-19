@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Device Status</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+  <script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+  <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+  <script src="../static/layui/layui.js"></script>
+</head>
+<body ><!-- background="background.jpg" style="background-size:100%;">
+   -->
+ 
+<div style="padding: 20px; background-color: #F2F2F2;">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md6">
+      <div class="layui-card">
+        <div class="layui-card-body">
+			<iframe class="chart-iframe" frameborder="no" style="width: 650px;height: 400px;" id="temp_chart" name="main" >
+			</iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-col-md6">
+      <div class="layui-card">
+        <div class="layui-card-body">
+			<iframe class="chart2-iframe" frameborder="no" style="width: 650px;height: 400px;" id="CO2_chart" name="main" >
+			</iframe>
+        </div>
+      </div>
+    </div>
+
+	<div class="layui-col-md6">
+      <div class="layui-card">
+        <div class="layui-card-body">
+			<iframe class="chart3-iframe" frameborder="no" style="width: 650px;height: 400px;" id="light_chart" name="main" >
+			</iframe>
+        </div>
+      </div>
+    </div>
+
+	<div class="layui-col-md6">
+      <div class="layui-card">
+        <div class="layui-card-body">
+			<iframe class="chart4-iframe" frameborder="no" style="width: 650px;height: 400px;" id="humidity_chart" name="main" >
+			</iframe>
+        </div>
+      </div>
+	</div>
+  </div>
+</div> 
+	<script type="text/javascript">
+		$('#temp_chart').attr('src','/TempChart/{{id}}');	
+		$('#CO2_chart').attr('src','/CO2Chart/{{id}}');
+		$('#light_chart').attr('src','/lightChart/{{id}}');
+		$('#humidity_chart').attr('src','/humidityChart/{{id}}');
+	</script>
+</body>
+</html>

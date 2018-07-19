@@ -152,3 +152,147 @@ def get_device_status():
         
     data.commit()
     return flask.jsonify(**context), 200
+
+@BoschIoT.app.route('/homePage', methods=['GET'])
+def get_home_page():
+    context = {}
+    return flask.render_template("homePage.html", **context)
+
+
+@BoschIoT.app.route('/deviceCharts/<id>', methods=['GET'])
+def get_device_charts(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    return flask.render_template("deviceMonitor.html", **context)
+
+@BoschIoT.app.route('/TempChart/<id>', methods=['GET'])
+def get_temp_charts(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    return flask.render_template("TemperatureChart.html", **context)
+
+@BoschIoT.app.route('/charts/tempData/<id>', methods=['GET'])
+def get_temp_data(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    tempData = []
+    for i in range(24):
+        # print('SELECT AVG(o.temperatureValue) AVGTEMP FROM temperature o WHERE o.ctime >DATE_SUB(CURDATE(), INTERVAL ' + str(24 - i) + ' HOUR) AND o.ctime < DATE_SUB(CURDATE(), INTERVAL ' +str(23 - i)+ ' HOUR)')
+        res = data.execute("SELECT AVG(o.temperatureValue) AS AVGTEMP FROM temperature o WHERE o.ctime >DATETIME( 'now', 'localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        newData = 0
+        print("SELECT AVG(o.temperatureValue) AS AVGTEMP FROM temperature o WHERE o.ctime >DATETIME( 'now','localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        for cur in res:
+            newData = cur["AVGTEMP"]
+        if newData == None:
+            newData = 0
+        tempData.append(newData)
+        print(newData)
+    context["datay"] = tempData
+    return flask.jsonify(**context), 200
+
+
+@BoschIoT.app.route('/CO2Chart/<id>', methods=['GET'])
+def get_CO2_charts(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    return flask.render_template("CO2Chart.html", **context)
+
+
+@BoschIoT.app.route('/charts/CO2Data/<id>', methods=['GET'])
+def get_CO2_data(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    tempData = []
+    for i in range(24):
+        # print('SELECT AVG(o.temperatureValue) AVGTEMP FROM temperature o WHERE o.ctime >DATE_SUB(CURDATE(), INTERVAL ' + str(24 - i) + ' HOUR) AND o.ctime < DATE_SUB(CURDATE(), INTERVAL ' +str(23 - i)+ ' HOUR)')
+        res = data.execute("SELECT AVG(o.CO2value) AS AVGTEMP FROM carbonDioxide o WHERE o.ctime >DATETIME( 'now', 'localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        newData = 0
+        print("SELECT AVG(o.CO2value) AS AVGTEMP FROM carbonDioxide o WHERE o.ctime >DATETIME( 'now','localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        for cur in res:
+            newData = cur["AVGTEMP"]
+        if newData == None:
+            newData = 0
+        tempData.append(newData)
+        print(newData)
+    context["datay"] = tempData
+    return flask.jsonify(**context), 200
+
+
+@BoschIoT.app.route('/lightChart/<id>', methods=['GET'])
+def get_light_charts(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    return flask.render_template("lightChart.html", **context)
+
+
+@BoschIoT.app.route('/charts/lightData/<id>', methods=['GET'])
+def get_light_data(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    tempData = []
+    for i in range(24):
+        # print('SELECT AVG(o.temperatureValue) AVGTEMP FROM temperature o WHERE o.ctime >DATE_SUB(CURDATE(), INTERVAL ' + str(24 - i) + ' HOUR) AND o.ctime < DATE_SUB(CURDATE(), INTERVAL ' +str(23 - i)+ ' HOUR)')
+        res = data.execute("SELECT AVG(o.lightValue) AS AVGTEMP FROM light o WHERE o.ctime >DATETIME( 'now', 'localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        newData = 0
+        print("SELECT AVG(o.lightValue) AS AVGTEMP FROM light o WHERE o.ctime >DATETIME( 'now','localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        for cur in res:
+            newData = cur["AVGTEMP"]
+        if newData == None:
+            newData = 0
+        tempData.append(newData)
+        print(newData)
+    context["datay"] = tempData
+    return flask.jsonify(**context), 200
+
+
+@BoschIoT.app.route('/humidityChart/<id>', methods=['GET'])
+def get_humidity_charts(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    return flask.render_template("CO2Chart.html", **context)
+
+
+@BoschIoT.app.route('/charts/humidityData/<id>', methods=['GET'])
+def get_humidity_data(id):
+    context = {}
+    data = BoschIoT.model.get_db()
+    #temp
+    context["id"] = id
+    tempData = []
+    for i in range(24):
+        # print('SELECT AVG(o.temperatureValue) AVGTEMP FROM temperature o WHERE o.ctime >DATE_SUB(CURDATE(), INTERVAL ' + str(24 - i) + ' HOUR) AND o.ctime < DATE_SUB(CURDATE(), INTERVAL ' +str(23 - i)+ ' HOUR)')
+        res = data.execute("SELECT AVG(o.humidityValue) AS AVGTEMP FROM humidity o WHERE o.ctime >DATETIME( 'now', 'localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        newData = 0
+        print("SELECT AVG(o.humidityValue) AS AVGTEMP FROM humidity o WHERE o.ctime >DATETIME( 'now','localtime', '-" + str(24 - i) + " hour')\
+         AND o.ctime <= DATETIME( 'now', 'localtime', '-" + str(23 - i) + " hour') AND o.deviceID = " + str(id))
+        for cur in res:
+            newData = cur["AVGTEMP"]
+        if newData == None:
+            newData = 0
+        tempData.append(newData)
+        print(newData)
+    context["datay"] = tempData
+    return flask.jsonify(**context), 200
