@@ -271,7 +271,7 @@ def get_humidity_charts(id):
     data = BoschIoT.model.get_db()
     #temp
     context["id"] = id
-    return flask.render_template("CO2Chart.html", **context)
+    return flask.render_template("humidityChart.html", **context)
 
 
 @BoschIoT.app.route('/charts/humidityData/<id>', methods=['GET'])
