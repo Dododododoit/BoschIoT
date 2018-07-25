@@ -1,0 +1,76 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>BoschIoT</title>
+<link rel="stylesheet" href="../static/layui/css/layui.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+  <script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+  <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+  <script src="../static/layui/layui.js"></script>
+</head>
+<body>
+
+    <div class="layui-tab layui-tab-card">
+  <ul class="layui-tab-title">
+    <li class="layui-this">Temperature Alert</li>
+    <li>CO2 Alert</li>
+    <li>Light Alert</li>
+    <li>Humidity Alert</li>
+  </ul>
+  <div class="layui-tab-content" style="height: 100px;">
+    <div class="layui-tab-item layui-show">
+      <p>&nbsp</p>
+      <form action="/update/temp_threashold/{{id}}" method="post">
+        &nbsp&nbsp&nbsp&nbsp  Alert when temperature less than: <input type="text" name="fname1" required="required" placeholder="{{tempFloor}}" />
+        &nbsp&nbsp&nbsp&nbsp Alert when temperature greater than: <input type="text" name="fname2" required="required" placeholder="{{tempCeil}}" />
+        <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
+      </form>
+    </div>
+    <div class="layui-tab-item">
+      <p>&nbsp</p>
+      <form action="/update/CO2_threashold/{{id}}" method="post">
+        &nbsp&nbsp&nbsp&nbsp  Alert when CO2 less than: <input type="text" name="fname1" required="required" placeholder="{{CO2Floor}}" />
+        &nbsp&nbsp&nbsp&nbsp Alert when CO2 greater than: <input type="text" name="fname2" required="required" placeholder="{{CO2Ceil}}" />
+        <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
+      </form>
+    </div>
+    <div class="layui-tab-item">
+      <p>&nbsp</p>
+      <form action="/update/light_threashold/{{id}}" method="post">
+         &nbsp&nbsp&nbsp&nbsp  Alert when light intensity less than: <input type="text" name="fname1" required="required" placeholder="{{lightFloor}}" />
+        &nbsp&nbsp&nbsp&nbsp Alert when light intensity greater than: <input type="text" name="fname2" required="required" placeholder="{{lightCeil}}" />
+        <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
+      </form>
+      
+    </div>
+    <div class="layui-tab-item">
+      <p>&nbsp</p>
+      <form action="/update/humidity_threashold/{{id}}" method="post">
+         &nbsp&nbsp&nbsp&nbsp  Alert when humidity less than: <input type="text" name="fname1" required="required" placeholder="{{humidityFloor}}" />
+        &nbsp&nbsp&nbsp&nbsp Alert when humidity intensity greater than: <input type="text" name="fname2" required="required" placeholder="{{humidityCeil}}" />
+        <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
+      </form>
+      
+    </div>
+  </div>
+  </div>
+<script type="text/javascript">
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});  
+
+
+
+</script>
+
+</body>
+</html>
+
+

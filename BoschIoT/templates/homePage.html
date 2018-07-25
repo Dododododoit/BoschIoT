@@ -81,20 +81,54 @@
         <li class="layui-nav-item layui-nav-itemed"  id="ordermg">
           <a class="layui-icon" href="javascript:;">&#xe609;   Device Status</a>
           <dl class="layui-nav-child">
-            <dd><a class="layui-icon" style="display:none" id="tmt" href="javascript:;">&#xe63c;   Tomato GreenHouse</a></dd>
+            <dd><a class="layui-icon" style="display:none" id="tmt" href="javascript:;">&#xe63c;   Tomato GreenHouse I </a></dd>
+            <dd><a class="layui-icon" style="display:none" id="tmt2" href="javascript:;">&#xe63c;   Tomato GreenHouse II </a></dd>
             <dd><a class="layui-icon" style="display:none" ID="stb" href="javascript:;">&#xe60a;  Strawberry GreenHouse</a></dd>
-            <dd><a class="layui-icon" style="display:none" ID="uploadTest" href="javascript:;">&#xe60a;  uploadTest</a></dd>
+            <!-- <dd><a class="layui-icon" style="display:none" ID="uploadTest" href="javascript:;">&#xe60a;  uploadTest</a></dd> -->
           </dl>
         </li>
 
+
+        <li class="layui-nav-item layui-nav-itemed"  id="ordermg">
+          <a class="layui-icon" href="javascript:;">&#xe609;   Device Setting</a>
+          <dl class="layui-nav-child">
+            <dd><a class="layui-icon" style="display:none" id="tmtSetting" href="javascript:;">&#xe63c;   Tomato GreenHouse I</a></dd>
+             <dd><a class="layui-icon" style="display:none" id="tmt2Setting" href="javascript:;">&#xe63c;   Tomato GreenHouse II</a></dd>
+            <dd><a class="layui-icon" style="display:none" ID="stbSetting" href="javascript:;">&#xe60a;  Strawberry GreenHouse</a></dd>
+            <!-- <dd><a class="layui-icon" style="display:none" ID="uploadTest" href="javascript:;">&#xe60a;  uploadTest</a></dd> -->
+          </dl>
+        </li>
+
+
+        <li class="layui-nav-item layui-nav-itemed"  id="ordermg">
+          <a class="layui-icon" href="javascript:;">&#xe609;   Alert Setting</a>
+          <dl class="layui-nav-child">
+            <dd><a class="layui-icon" style="display:none" id="tmtAS" href="javascript:;">&#xe63c;   Tomato GreenHouse I</a></dd>
+            <dd><a class="layui-icon" style="display:none" id="tmt2AS" href="javascript:;">&#xe63c;   Tomato GreenHouse II</a></dd>
+            <dd><a class="layui-icon" style="display:none" ID="stbAS" href="javascript:;">&#xe60a;  Strawberry GreenHouse</a></dd>
+          </dl>
+        </li>
+
+
+        <li class="layui-nav-item layui-nav-itemed"  id="ordermg">
+          <a class="layui-icon" href="javascript:;">&#xe609;   Alert Logging</a>
+          <dl class="layui-nav-child">
+            <dd><a class="layui-icon" style="display:none" id="tmtAlert" href="javascript:;">&#xe63c;   Tomato GreenHouse I</a></dd>
+            <dd><a class="layui-icon" style="display:none" id="tmt2Alert" href="javascript:;">&#xe63c;   Tomato GreenHouse II</a></dd>
+            <dd><a class="layui-icon" style="display:none" ID="stbAlert" href="javascript:;">&#xe60a;  Strawberry GreenHouse</a></dd>
+          </dl>
+        </li>
       </ul>
+
+
+
     </div>
   </div>
   
   <div class="layui-body pcc" id="pcc" style="min-width: 1178px;">
     <!-- 内容主体区域 -->
     <!-- <iframe class="admin-iframe" style="position: absolute;border: 0;width: 100%;height: 100%;" id="web_page" name="main" src="/index/home.html"></iframe> -->
-      <iframe class="admin-iframe" style="position: absolute;border: 0;width: 100%;height: 100%;" id="web_page" name="main"></iframe>
+      <iframe class="admin-iframe" style="position: absolute;border: 0;width: 100%;height: 100%;" id="web_page" name="main" src="/home"></iframe>
   </div>
   
 </div>
@@ -104,7 +138,17 @@
         var flag = 0;
          // $(".layui-layout-admin").toggleClass("showMenu");
      	$("#tmt").show();
+      $("#tmt2").show();
      	$("#stb").show();
+      $("#tmtSetting").show();
+      $("#tmt2Setting").show();
+      $("#stbSetting").show();
+      $("#tmtAS").show();
+      $("#tmt2AS").show();
+      $("#stbAS").show();
+      $("#tmtAlert").show();
+      $("#tmt2Alert").show();
+      $("#stbAlert").show();
      	$("#uploadTest").show();
          //隐藏左侧导航
         $(".hideMenu").click(function(){
@@ -138,10 +182,58 @@
 
 	})
 
+$("#tmt2").click(function(){
+      $('#web_page').attr('src','/deviceCharts/2');
+
+  })
+
 	$("#stb").click(function(){
-	    $('#web_page').attr('src','/deviceCharts/2');
+	    $('#web_page').attr('src','/deviceCharts/3');
 
 	})
+
+
+  $("#tmtSetting").click(function(){
+      $('#web_page').attr('src','/DeviceSetting/1');
+
+  })
+  $("#tmt2Setting").click(function(){
+      $('#web_page').attr('src','/DeviceSetting/2');
+
+  })
+
+  $("#stbSetting").click(function(){
+      $('#web_page').attr('src','/DeviceSetting/3');
+
+  })
+
+$("#tmtAS").click(function(){
+      $('#web_page').attr('src','/AlertSetting/1');
+
+  })
+$("#tmt2AS").click(function(){
+      $('#web_page').attr('src','/AlertSetting/2');
+
+  })
+  $("#stbAS").click(function(){
+      $('#web_page').attr('src','/AlertSetting/3');
+
+  })
+
+  $("#tmtAlert").click(function(){
+      $('#web_page').attr('src','/AlertLog/1');
+
+  })
+
+  $("#tmt2Alert").click(function(){
+      $('#web_page').attr('src','/AlertLog/2');
+
+  })
+
+  $("#stbAlert").click(function(){
+      $('#web_page').attr('src','/AlertLog/3');
+
+  })
 
 </script>
 </body>
