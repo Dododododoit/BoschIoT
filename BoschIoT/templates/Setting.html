@@ -24,14 +24,14 @@
     <div class="layui-tab-item layui-show">
       <p>&nbsp</p>
       <form action="/update/curtain_threashold/{{id}}" method="post">
-        &nbsp&nbsp&nbsp&nbspOpen Temperature Threshold (<= degree): <input type="text" name="fname" required="required" placeholder="{{CurtainTemp}}" />
+        &nbsp&nbsp&nbsp&nbspClose Temperature Threshold (<= degree): <input type="text" name="fname" required="required" placeholder="{{CurtainTemp}}" />
         <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
       </form>
     </div>
     <div class="layui-tab-item">
       <p>&nbsp</p>
       <form action="/update/fans_threashold/{{id}}" method="post">
-        &nbsp&nbsp&nbsp&nbspTurn-On Temperature Threshold (>= degree): <input type="text" name="fname" required="required" placeholder="{{FansTemp}}" />
+        &nbsp&nbsp&nbsp&nbspTurn-On Humidity Threshold (>=): <input type="text" name="fname" required="required" placeholder="{{FansTemp}}" />
         <input class="layui-btn layui-btn-sm" type="submit" value="Update" />
       </form>
     </div>

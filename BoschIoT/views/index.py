@@ -95,10 +95,7 @@ def update_temperature():
             ', [id, 1, int(value), 0])
 
 
-    if int(value) >Fans_open:
-        res = data.execute('UPDATE DeviceStatus SET Fans = 1 WHERE deviceID = ' + str(id))  
-    else:
-        res = data.execute('UPDATE DeviceStatus SET Fans = 0 WHERE deviceID = ' + str(id))  
+
     if int(value) >CurtainTemp:
         res = data.execute('UPDATE DeviceStatus SET Curtain = 0 WHERE deviceID = ' + str(id))  
     else:
@@ -183,6 +180,13 @@ def update_humidity():
             VALUES(?, ?)\
             ', [id, value])
 
+
+    res = data.execute('SELECT * FROM DeviceSetting WHERE deviceID = ' + str(id)).fetchone()
+    Fans_open = res["FansTemp"]
+    Fans_open = int(Fans_open)
+
+
+
     res = data.execute('SELECT * FROM AlertThreshold WHERE deviceID = ' + str(id)).fetchone()
     humidityFloor= res["humidityFloor"]
     humidityFloor = int(humidityFloor)
@@ -197,6 +201,11 @@ def update_humidity():
             VALUES(?, ?, ?, ?)\
             ', [id, 4, int(value), 0])
 
+
+    if int(value) >Fans_open:
+        res = data.execute('UPDATE DeviceStatus SET Fans = 1 WHERE deviceID = ' + str(id))  
+    else:
+        res = data.execute('UPDATE DeviceStatus SET Fans = 0 WHERE deviceID = ' + str(id))  
     data.commit()
     return flask.jsonify(**context), 200
 
@@ -392,7 +401,7 @@ def get_Device_Setting(id):
         context["deviceID"] = id
         context["deviceType"] = id
         context["CurtainTemp"] = 10
-        context["FansTemp"] = 35
+        context["FansTemp"] = 500
         context["LEDLight"] = 200
         
     data.commit()
